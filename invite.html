@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+
+    <title>welcome to the save room</title>
+
+    <link rel="stylesheet" href="css/root.css" />
+    <script src="js/config.js"></script>
+
+  </head>
+
+  <body class="room">
+    <!-- SAVE ROOM VIDEO -->
+
+    <video class="bg-video" id="room-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/room-loop.mp4" type="video/mp4">
+    </video>
+    
+    <video class="bg-video" id="room-intro" autoplay muted playsinline preload="auto" style="z-index:1">
+      <source src="assets/room-intro.mp4" type="video/mp4">
+    </video>
+    
+    <div id="curtain"></div>
+    
+
+      <!-- ===================================================== ROOM HOTSPOTS =====================================================
+           Positions are % of the VIDEO frame (see --x --y --w --h). Tweak them to match your video. -->
+      <svg class="spots" id="spots" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+
+        <polygon class="hot" data-id="chest" data-name="CHEST" tabindex="0" role="button"
+          aria-label="Examine chest" points="1308,906 1376,594 1775,650 1873,1008" />
+
+
+        <polygon class="hot" data-id="typewriter" data-name="TYPEWRITER" tabindex="0" role="button" aria-label="Examine typewriter"
+          points="399,816 500,798 551,838 627,803 762,889 779,913 636,1003 550,982 492,928 472,923 459,868" />
+
+        <polygon class="hot" data-id="documents" data-name="DOCUMENTS" tabindex="0" role="button" aria-label="Examine documents"
+          points="5,649 159,683 602,438 548,41 4,43" />
+
+        <polygon class="hot" data-id="calendar" data-name="CALENDAR" tabindex="0" role="button" aria-label="Examine calendar"
+          points="841,49 839,154 1094,167 1090,50" />
+
+        <polygon class="hot" data-id="closet" data-name="CLOSET" tabindex="0" role="button" aria-label="Examine closet" points="1308,453 1378,43 1759,51 1639,503" />
+
+
+        <!-- add door, mirror, table, typewriter, chest the same way -->
+      </svg>
+
+    <!-- ===================================================== VHS EFFECTS ===================================================== -->
+    <div class="fx fx-grain"></div>
+    <div class="fx fx-scan"></div>
+    <div class="fx fx-vignette"></div>
+    <div class="fx fx-flicker"></div>
+
+    <!-- ===================================================== CURSOR PROMPT ===================================================== -->
+    <div id="examine" class="examine" hidden>
+      <span>[EXAMINE]</span>
+      <b id="examine-name"></b>
+    </div>
+
+    <!-- ===================================================== HUD ===================================================== -->
+    <aside class="hud hud--tl">
+    <button id="sound" class="hud__btn" aria-pressed="false">SOUND: OFF</button>
+    </aside>
+    <aside class="hud hud--bl">
+        
+
+    </aside>
+    <aside class="hud hud--tr">
+      ITEMS FOUND<br />
+      <b id="hud-count">00 / 04</b><br />
+    </aside>
+
+    <!-- ===================================================== INFORMATION OVERLAY ===================================================== -->
+
+    <div id="toast" class="toast" hidden role="status" aria-live="polite">
+      <b>ALL TASKS COMPLETE.</b><br>You've completed all tasks. See you at the party.
+    </div>
+
+
+    <div
+      id="info-panel"
+      class="info-panel"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ip-title"
+    >
+      <div class="info-panel__window">
+        <button class="info-panel__close" aria-label="Close">×</button>
+        <div id="info-panel-content"></div>
+      </div>
+    </div>
+
+  <script src="js/invite.js"></script>
+  <script src="js/sound.js" ></script>
+  <script src="js/video.js" ></script>
+  <script src="js/calibrate.js"></script>
+  </body>
+</html>

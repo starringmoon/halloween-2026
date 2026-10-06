@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>...</title>
+
+    <link rel="stylesheet" href="css/root.css">
+
+</head>
+
+<body class="intro">
+
+<!-- INTRO VIDEO (paused until click) -->
+
+
+<video id="intro-video" class="bg-video" playsinline preload="auto" poster="assets/images/door-poster.png">
+
+  <source src="assets/door.mp4#t=0.001" type="video/mp4"></video>
+  
+<!-- ===================================================== VHS EFFECTS ===================================================== -->
+<div class="fx fx-grain"></div>
+
+<div class="fx fx-scan"></div>
+
+<div class="fx fx-vignette"></div>
+
+<div class="fx fx-flicker"></div>
+
+<main class="intro__text" id="intro-ui">
+  <p class="typed">you have been invited to an event.</p>
+  <p class="typed d2"> go inside?</p>
+  <button id="open-door" class="prompt">&gt; yes</button>
+</main>
+
+<script src="js/intro.js"></script></body></html>
