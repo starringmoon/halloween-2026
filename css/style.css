@@ -319,7 +319,6 @@ body.room-ready .spots {
     text-align: center;
     background: var(--panel);
     border: 1px solid var(--border);
-    box-shadow: 0 0 0 3px #000, 0 0 0 4px var(--accent);
     padding: 1em 1.2em;
     animation: in calc(.4s*var(--speed))
 }
@@ -338,10 +337,11 @@ body.room-ready .spots {
 /* TODO : HUD */
 
 .hud {
+    background: rgba(0, 0, 0, var(--overlay-opacity));
     position: fixed;
     z-index: 7;
     font-size: 16px;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.2em;
     color: var(--muted);
     pointer-events: none;
     padding: calc(16px + env(safe-area-inset-top)) 16px;
@@ -353,11 +353,14 @@ body.room-ready .spots {
 }
 
 .hud--tl {
+    margin: 8px;
     top: 0;
     left: 0;
 }
 
 .hud--tr {
+    margin: 8px;
+    border: 1px solid #A6A9D3;
     top: 0;
     right: 0;
     text-align: right;
@@ -380,6 +383,7 @@ body.room-ready .spots {
     padding: 0 0.8em;
     cursor: pointer;
 }
+
 
 
 /* TODO: INFO PANEL */
@@ -528,6 +532,11 @@ th {
         letter-spacing: 0.2em;
         padding-left: 8px;
         padding-right: 8px;
+    }
+
+    .hud--tr{
+        width: 40%;
+        text-align: center;
     }
 
 }

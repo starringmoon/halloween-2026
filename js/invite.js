@@ -10,13 +10,14 @@
   const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } };
   let found = load(KEY, []).filter(id => id in ITEMS), last = null;   // old id fix
 
-  const toast = $("#toast"); let pending = false, toastTimer;
-  function celebrate() {
-    toast.hidden = false;
-    if (window.Sound) Sound.complete();
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.hidden = true, 5000);
-  }
+const toast = $("#toast"); let pending = false;
+function celebrate() {
+  toast.hidden = false;
+  if (window.Sound) Sound.complete();
+}
+const dismissToast = () => toast.hidden = true;
+toast.addEventListener("click", dismissToast);
+addEventListener("keydown", e => { if (e.key === "Escape" && !toast.hidden && panel.hidden) dismissToast(); });
   toast.addEventListener("click", () => toast.hidden = true);   // dismiss on tzp
 
   function hud() {
@@ -69,10 +70,10 @@
     closet: () => `<h2 id="ip-title">DRESS CODE</h2><p class="big">${esc(PARTY_CONFIG.dressCode)}</p>`,
 
 
-    typewriter: () => `<h2 id="ip-title">confirm your presence</h2><p class="big">Your progress has been saved.<br>will you be at the party?</p>${link(PARTY_CONFIG.googleFormUrl, "confirm presence")}`,
+    typewriter: () => `<h2 id="ip-title">are you going?</h2><p class="big">Your progress has been saved.<br>will you be at the party?</p>${link(PARTY_CONFIG.googleFormUrl, "confirm presence")}`,
 
 
-    documents: () => `<h2 id="ip-title">guestlist</h2><div id="gl">LOADING...</div>${link(PARTY_CONFIG.googleFormUrl, "join the guestlist")}`,
+    documents: () => `<div id="gl">LOADING...</div>${link(PARTY_CONFIG.googleFormUrl, "join the guestlist")}`,
 
 
     chest: () => `<h2 id="ip-title">INVENTORY</h2>
