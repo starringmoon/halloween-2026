@@ -3,41 +3,28 @@
 (() => {
   const $ = s => document.querySelector(s);
   const panel = $("#info-panel"), box = $("#info-panel-content"), tip = $("#examine"), tipName = $("#examine-name");
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
-  const ITEMS = { calendar:"DATE / TIME / LOCATION", closet:"DRESS CODE", typewriter:"RSVP", documents:"FOOD / CONTRIBUTIONS" };
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const ITEMS = { calendar: "DATE / TIME / LOCATION", closet: "DRESS CODE", typewriter: "RSVP", documents: "FOOD / CONTRIBUTIONS" };
   const KEY = "halloween-found";
   const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };
-  const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+  const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } };
   let found = load(KEY, []).filter(id => id in ITEMS), last = null;   // old id fix
 
   const toast = $("#toast"); let pending = false, toastTimer;
-function celebrate() {
-  toast.hidden = false;
-  if (window.Sound) Sound.complete();
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.hidden = true, 5000);
-}
-toast.addEventListener("click", () => toast.hidden = true);   // dismiss on tzp
+  function celebrate() {
+    toast.hidden = false;
+    if (window.Sound) Sound.complete();
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.hidden = true, 5000);
+  }
+  toast.addEventListener("click", () => toast.hidden = true);   // dismiss on tzp
 
   function hud() {
-
     const p = n => String(n).padStart(2, "0");
-  const el = document.getElementById("hud-count");
-  if (!el) return console.warn("[hud] #hud-count not found in invite.html");
-  el.textContent = p(found.length) + " / " + p(Object.keys(ITEMS).length);
-  document.querySelectorAll(".hot").forEach(h => h.classList.toggle("found", found.includes(h.dataset.id)));
-    const P = {
-  calendar: () => `<h2 id="ip-title">DATE / TIME / LOCATION</h2>
-    <p class="big">${esc(PARTY_CONFIG.date).toUpperCase()}</p>
-    <p class="dim">${new Date(PARTY_CONFIG.date + " 12:00").toLocaleDateString("en-US",{weekday:"long"}).toUpperCase()} · <span id="cd"></span></p>
-    <p class="big">${esc(PARTY_CONFIG.startTime)} — ${esc(PARTY_CONFIG.endTime)}</p>
-    <p class="big">${esc(PARTY_CONFIG.location)}</p>
-    ${link(calUrl(), "ADD TO CALENDAR")}${link("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(PARTY_CONFIG.location), "OPEN MAP")}`,
-  closet: () => `<h2 id="ip-title">DRESS CODE</h2><p class="big">${esc(PARTY_CONFIG.dressCode)}</p><p class="dim">OR AT LEAST LOOK SUSPICIOUS.</p>`,
-  typewriter: () => `<h2 id="ip-title">RSVP</h2><p class="big">CONFIRM YOUR PRESENCE.</p>${link(PARTY_CONFIG.googleFormUrl, "SAVE YOUR SPOT")}`,
-  documents: () => `<h2 id="ip-title">WHAT IS EVERYONE BRINGING?</h2><div id="gl" class="dim">LOADING...</div>${link(PARTY_CONFIG.googleFormUrl, "+ ADD WHAT I'M BRINGING")}`,
-  chest: () => `<h2 id="ip-title">INVENTORY</h2><ul class="inv">${Object.entries(ITEMS).map(([k, v]) => found.includes(k) ? `<li class="got">[✓] ${v}</li>` : `<li class="no">[ ] ${v}</li>`).join("")}</ul><p class="big">${found.length === Object.keys(ITEMS).length ? "INVITATION COMPLETE" : "EXAMINE THE ROOM."}</p>`
-};
+    const el = document.getElementById("hud-count");
+    if (!el) return console.warn("[hud] #hud-count not found in invite.html");
+    el.textContent = p(found.length) + " / " + p(Object.keys(ITEMS).length);
+    document.querySelectorAll(".hot").forEach(h => h.classList.toggle("found", found.includes(h.dataset.id)));
   }
   function calUrl() {
     const d = new Date(PARTY_CONFIG.date + " 12:00"), p = n => String(n).padStart(2, "0");
@@ -66,13 +53,31 @@ toast.addEventListener("click", () => toast.hidden = true);   // dismiss on tzp
     } catch (e) { return { list: MANUAL_GUESTS, ok: false }; }
   }
   const P = {
-    calendar: () => `<h2 id="ip-title">DATE</h2><p class="big">${esc(PARTY_CONFIG.date).toUpperCase()}</p><p class="dim">${new Date(PARTY_CONFIG.date + " 12:00").toLocaleDateString("en-US",{weekday:"long"}).toUpperCase()}</p><p class="dim" id="cd"></p>${link(calUrl(), "ADD TO CALENDAR")}`,
+    calendar: () => `<h2 id="ip-title">DATE</h2><p class="big">${esc(PARTY_CONFIG.date).toUpperCase()}</p><p class="dim">${new Date(PARTY_CONFIG.date + " 12:00").toLocaleDateString("en-US", { weekday: "long" }).toUpperCase()}</p><p class="dim" id="cd"></p>${link(calUrl(), "ADD TO CALENDAR")}`,
+    
+
     clock: () => `<h2 id="ip-title">TIME</h2><p class="big">${esc(PARTY_CONFIG.startTime)} — ${esc(PARTY_CONFIG.endTime)}</p><p class="dim">DO NOT ARRIVE AFTER THE LAST CHIME.</p>`,
+
+
     door: () => `<h2 id="ip-title">LOCATION</h2><p class="big">${esc(PARTY_CONFIG.location)}</p>${link("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(PARTY_CONFIG.location), "OPEN MAP")}`,
-    closet: () => `<h2 id="ip-title">DRESS CODE</h2><p class="big">${esc(PARTY_CONFIG.dressCode)}</p><p class="dim">OR AT LEAST LOOK SUSPICIOUS.</p>`,
-    typewriter: () => `<h2 id="ip-title">RSVP</h2><p class="big">CONFIRM YOUR PRESENCE.</p>${link(PARTY_CONFIG.googleFormUrl, "SAVE YOUR SPOT")}`,
+
+
+    closet: () => `<h2 id="ip-title">DRESS CODE</h2><p class="big">${esc(PARTY_CONFIG.dressCode)}</p>`,
+
+
+    typewriter: () => `<h2 id="ip-title">confirm your invititation</h2><p class="big">Hello. This message will find you when you will need to confirm your presence at the party.</p>${link(PARTY_CONFIG.googleFormUrl, "confirm")}`,
+
+
     documents: () => `<h2 id="ip-title">WHAT IS EVERYONE BRINGING?</h2><div id="gl" class="dim">LOADING...</div>${link(PARTY_CONFIG.googleFormUrl, "+ ADD WHAT I'M BRINGING")}`,
-    chest: () => `<h2 id="ip-title">INVENTORY</h2><ul class="inv">${Object.entries(ITEMS).map(([k, v]) => found.includes(k) ? `<li class="got">[✓] ${v}</li>` : `<li class="no">[ ] ${v}</li>`).join("")}</ul><p class="big">${found.length === 6 ? "INVITATION COMPLETE" : "EXAMINE THE ROOM."}</p>`
+
+
+    chest: () => `<h2 id="ip-title">INVENTORY</h2>
+
+    <p class="big">${found.length === 6 ? "INVITATION COMPLETE" : "EXAMINE THE ROOM."}</p>
+
+    <ul class="inv">${Object.entries(ITEMS).map(([k, v]) => found.includes(k) ? `<li class="got">[✓] ${v}</li>` : `<li class="no">[ ] ${v}</li>`).join("")}</ul>
+    
+  `
   };
   function open(id, el) {
     last = el; box.innerHTML = P[id](); panel.hidden = false; tip.hidden = true;
