@@ -4,7 +4,7 @@
   const $ = s => document.querySelector(s);
   const panel = $("#info-panel"), box = $("#info-panel-content"), tip = $("#examine"), tipName = $("#examine-name");
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const ITEMS = { calendar: "DATE / TIME / LOCATION", closet: "DRESS CODE", typewriter: "RSVP", documents: "FOOD / CONTRIBUTIONS" };
+  const ITEMS = { calendar: "check date in calendar", closet: "check dresscode", typewriter: "confirm presence", documents: "check documents" };
   const KEY = "halloween-found";
   const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };
   const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } };
@@ -34,7 +34,7 @@
       "&dates=" + f(d, PARTY_CONFIG.startTime) + "/" + f(end, PARTY_CONFIG.endTime) +
       "&location=" + encodeURIComponent(PARTY_CONFIG.location) + "&details=" + encodeURIComponent(PARTY_CONFIG.description);
   }
-  const link = (href, label) => `<a class="btn" href="${esc(href)}" target="_blank" rel="noopener">[ ${label} ]</a>`;
+  const link = (href, label) => `<a class="btn" href="${esc(href)}" target="_blank" rel="noopener">${label}</a>`;
   function parseCSV(t) {
     const rows = []; let r = [], c = "", q = false;
     for (let i = 0; i < t.length; i++) { const ch = t[i];
@@ -53,10 +53,14 @@
     } catch (e) { return { list: MANUAL_GUESTS, ok: false }; }
   }
   const P = {
-    calendar: () => `<h2 id="ip-title">DATE</h2><p class="big">${esc(PARTY_CONFIG.date).toUpperCase()}</p><p class="dim">${new Date(PARTY_CONFIG.date + " 12:00").toLocaleDateString("en-US", { weekday: "long" }).toUpperCase()}</p><p class="dim" id="cd"></p>${link(calUrl(), "ADD TO CALENDAR")}`,
+    calendar: () => `<h2 id="ip-title">DATE</h2>
     
+    <p">${new Date(PARTY_CONFIG.date + " 12:00").toLocaleDateString("en-US", { weekday: "long" }).toUpperCase()} ${esc(PARTY_CONFIG.date).toUpperCase()}</p>
+  
 
-    clock: () => `<h2 id="ip-title">TIME</h2><p class="big">${esc(PARTY_CONFIG.startTime)} — ${esc(PARTY_CONFIG.endTime)}</p><p class="dim">DO NOT ARRIVE AFTER THE LAST CHIME.</p>`,
+    <h2 id="ip-title">TIME</h2><p class="big">${esc(PARTY_CONFIG.startTime)}</p>
+
+        <p id="cd"></p>${link(calUrl(), "ADD TO CALENDAR")}`,
 
 
     door: () => `<h2 id="ip-title">LOCATION</h2><p class="big">${esc(PARTY_CONFIG.location)}</p>${link("https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(PARTY_CONFIG.location), "OPEN MAP")}`,
@@ -65,10 +69,10 @@
     closet: () => `<h2 id="ip-title">DRESS CODE</h2><p class="big">${esc(PARTY_CONFIG.dressCode)}</p>`,
 
 
-    typewriter: () => `<h2 id="ip-title">confirm your invititation</h2><p class="big">Hello. This message will find you when you will need to confirm your presence at the party.</p>${link(PARTY_CONFIG.googleFormUrl, "confirm")}`,
+    typewriter: () => `<h2 id="ip-title">confirm your presence</h2><p class="big">Your progress has been saved.<br>will you be at the party?</p>${link(PARTY_CONFIG.googleFormUrl, "confirm presence")}`,
 
 
-    documents: () => `<h2 id="ip-title">WHAT IS EVERYONE BRINGING?</h2><div id="gl" class="dim">LOADING...</div>${link(PARTY_CONFIG.googleFormUrl, "+ ADD WHAT I'M BRINGING")}`,
+    documents: () => `<h2 id="ip-title">guestlist</h2><div id="gl">LOADING...</div>${link(PARTY_CONFIG.googleFormUrl, "join the guestlist")}`,
 
 
     chest: () => `<h2 id="ip-title">INVENTORY</h2>
@@ -88,12 +92,19 @@
 }
     if (id === "calendar") { const days = Math.ceil((new Date(PARTY_CONFIG.date + " " + PARTY_CONFIG.startTime) - Date.now()) / 864e5); $("#cd").textContent = days > 0 ? days + " DAYS REMAIN" : "THE NIGHT IS HERE."; }
     if (id === "documents") guests().then(({ list, ok }) => { const g = $("#gl"); if (!g) return;
-      g.innerHTML = (ok ? "" : "<p>SIGNAL LOST. SHOWING SAVED LIST.</p>") + `<table><tr><th>NAME</th><th>BRINGING</th></tr>${list.map(x => `<tr><td>${esc(x.name)}</td><td>${esc(x.bringing)}</td></tr>`).join("")}</table>`; });
+      g.innerHTML = (ok ? "" : "<p>SIGNAL LOST. SHOWING SAVED LIST.</p>") + `<table>
+      
+      <tr>
+      <th>NAME</th>
+      <th>bringing</th></tr>${list.map(x => `<tr><td>${esc(x.name)}</td><td>${esc(x.bringing)}</td></tr>`).join("")}</table>`;
+    });
     panel.querySelector(".info-panel__close").focus();
   }
   function close() {
   panel.hidden = true; document.body.classList.remove("paused"); if (last) last.focus();
-  if (pending) { pending = false; celebrate(); }
+  if (window.Sound) Sound.close();
+  if (pending) { pending = false; setTimeout(celebrate, 400); }
+
 }
   panel.addEventListener("click", e => { if (e.target === panel || e.target.closest(".info-panel__close")) close(); });
   addEventListener("keydown", e => { if (e.key === "Escape" && !panel.hidden) close(); });

@@ -321,7 +321,6 @@ body.room-ready .spots {
     border: 1px solid var(--border);
     box-shadow: 0 0 0 3px #000, 0 0 0 4px var(--accent);
     padding: 1em 1.2em;
-    letter-spacing: .8em;
     animation: in calc(.4s*var(--speed))
 }
 
@@ -372,9 +371,9 @@ body.room-ready .spots {
 .hud__btn {
     pointer-events: auto;
     margin-top: 0.4em;
-    min-height: 44px;
+   
     background: none;
-    border: 1px solid var(--border);
+
     color: var(--text);
     font: inherit;
     letter-spacing: 0.2em;

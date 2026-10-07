@@ -10,8 +10,8 @@ const PARTY_CONFIG = {
   googleFormUrl: "https://docs.google.com/spreadsheets/d/1lvMYx1eQ-XrIHwe2FrbKpEjV-Xmnn6oK9_a8QkoyRMU/edit?gid=0#gid=0",
   googleSheetCsvUrl: "https://docs.google.com/spreadsheets/d/1lvMYx1eQ-XrIHwe2FrbKpEjV-Xmnn6oK9_a8QkoyRMU/edit?gid=0#gid=0"
 };
-const CSV_COLUMNS = { name: "Name", bringing: "What are you bringing?" };
-const MANUAL_GUESTS = [{ name: "Guest Name", bringing: "Food / Drink" }];
+const CSV_COLUMNS = { name: "Name", bringing: "bringing" };
+const MANUAL_GUESTS = [{ name: "giulia", bringing: "[food, drinks]" }, { name: "yiri", bringing: "[food]" }];
 
 
 //sounds
@@ -19,12 +19,14 @@ const MANUAL_GUESTS = [{ name: "Guest Name", bringing: "Food / Drink" }];
 const SOUNDS = {
   music: "assets/freefromfear.mp3", 
   hover: "./assets/sounds/select.wav", 
+  close: "assets/sounds/close.wav",
+
   click: {
-    calendar:      "assets/sounds/paper.wav",
-    closet:     "assets/sounds/closet.wav",
-    documents:      "./assets/sounds/typewriter.wav",
-    typewriter:      "./assets/sounds/typewriter.wav",
+    calendar:"assets/sounds/paper.wav",
+    closet: "assets/sounds/closet.wav",
+    documents: "./assets/sounds/documents.wav",
+    typewriter: "./assets/sounds/typewriter.wav",
     chest: "assets/sounds/chest.wav",
-    complete: "assets/sounds/complete.mp3",
+    complete: "assets/sounds/complete.wav",
   }
 };

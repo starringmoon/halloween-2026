@@ -15,8 +15,8 @@
   const hover = make(SOUNDS.hover, .3);
 
   const complete = make(SOUNDS.complete, .5);
-  window.Sound = { complete: () => play(complete) };   // lets invite.js trigger
-  
+  const closeSfx = make(SOUNDS.close, .4);
+  window.Sound = { complete: () => play(complete), close: () => play(closeSfx) };  
   
   const click = {};
   Object.entries(SOUNDS.click).forEach(([id, src]) => click[id] = make(src, .5));
