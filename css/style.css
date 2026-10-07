@@ -216,7 +216,7 @@ body.leaving .intro__text {
 
 /* HOTSPOTS */
 .spots {
-    position: fixed;
+    position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
@@ -371,7 +371,7 @@ body.room-ready .spots {
 .hud__btn {
     pointer-events: auto;
     margin-top: 0.4em;
-   
+
     background: none;
 
     color: var(--text);
@@ -404,8 +404,8 @@ body.room-ready .spots {
     max-height: 86vh;
     overflow: auto;
     background: var(--panel);
-    
-box-shadow:
+
+    box-shadow:
         inset 0 6px 3px #878CB4,
         inset 0 6px 4px #A6A9D3,
 
@@ -524,7 +524,8 @@ th {
 
 @media (max-width: 600px) {
     .hud {
-        font-size: 10px;
+        font-size: 16px;
+        letter-spacing: 0.2em;
         padding-left: 8px;
         padding-right: 8px;
     }
@@ -558,4 +559,79 @@ th {
 body.paused .fx-grain,
 body.paused .fx-flicker {
     animation-play-state: paused;
+}
+
+/* WORLD + MOBILE PAN */
+
+.world {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
+}
+
+.pan-btn {
+    display: none;
+    position: fixed;
+    top: 50%;
+    z-index: 7;
+    width: 56px;
+    height: 56px;
+    margin-top: 0px;
+    padding: 0;
+    place-items: center;
+    background: #01010D;
+    border: 2px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity .25s;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pan-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.pan-btn--left {
+    left: max(8px, env(safe-area-inset-left));
+}
+
+.pan-btn--right {
+    right: max(8px, env(safe-area-inset-right));
+}
+
+.pan-btn--right svg {
+    transform: scaleX(-1);
+}
+
+.pan-btn:active,
+.pan-btn:focus-visible {
+    border-color: var(--warn);
+    color: var(--warn);
+    outline: none;
+}
+
+.pan-btn:disabled {
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.pan.room-ready .pan-btn {
+    display: grid;
+}
+
+/* no tooltip on mobile */
+@media (pointer: coarse),
+(max-width: 900px) {
+    .examine {
+        display: none !important;
+    }
 }
