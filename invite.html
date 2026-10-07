@@ -27,8 +27,7 @@
     <div id="curtain"></div>
     
 
-      <!-- ===================================================== ROOM HOTSPOTS =====================================================
-           Positions are % of the VIDEO frame (see --x --y --w --h). Tweak them to match your video. -->
+      <!-- ROOM HOTSPOTS -->
       <svg class="spots" id="spots" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
 
         <polygon class="hot" data-id="chest" data-name="CHEST" tabindex="0" role="button"
@@ -45,24 +44,21 @@
           points="841,49 839,154 1094,167 1090,50" />
 
         <polygon class="hot" data-id="closet" data-name="CLOSET" tabindex="0" role="button" aria-label="Examine closet" points="1308,453 1378,43 1759,51 1639,503" />
-
-
-        <!-- add door, mirror, table, typewriter, chest the same way -->
       </svg>
 
-    <!-- ===================================================== VHS EFFECTS ===================================================== -->
+    <!-- VHS EFFECTS  -->
     <div class="fx fx-grain"></div>
     <div class="fx fx-scan"></div>
     <div class="fx fx-vignette"></div>
     <div class="fx fx-flicker"></div>
 
-    <!-- ===================================================== CURSOR PROMPT ===================================================== -->
+    <!-- CURSOR PROMPT  -->
     <div id="examine" class="examine" hidden>
       <span>[EXAMINE]</span>
       <b id="examine-name"></b>
     </div>
 
-    <!-- ===================================================== HUD ===================================================== -->
+    <!-- HUD -->
     <aside class="hud hud--tl">
     <button id="sound" class="hud__btn" aria-pressed="false">SOUND: OFF</button>
     </aside>
@@ -75,7 +71,7 @@
       <b id="hud-count">00 / 04</b><br />
     </aside>
 
-    <!-- ===================================================== INFORMATION OVERLAY ===================================================== -->
+    <!-- OVERLAYS  -->
 
     <div id="toast" class="toast" hidden role="status" aria-live="polite">
       <b>ALL TASKS COMPLETE.</b><br>You've completed all tasks. See you at the party.
@@ -88,8 +84,7 @@
       hidden
       role="dialog"
       aria-modal="true"
-      aria-labelledby="ip-title"
-    >
+      aria-labelledby="ip-title">
       <div class="info-panel__window">
         <button class="info-panel__close" aria-label="Close">×</button>
         <div id="info-panel-content"></div>

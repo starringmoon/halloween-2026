@@ -1,4 +1,5 @@
-/* js/video.js — play room-intro once, then switch to the looping room-video */
+//videos
+
 (() => {
   const introV = document.getElementById("room-intro");
   const loopV = document.getElementById("room-video");
@@ -17,7 +18,7 @@
  function startLoop() {
   if (switched) return; switched = true;
   liftOnce(); loopV.currentTime = 0;
-  document.body.classList.add("room-ready");      // hotspots appear now
+  document.body.classList.add("room-ready");      // hotspots on
   loopV.play().catch(e => console.warn("[video] loop failed:", e));
   introV.style.display = "none";
 }

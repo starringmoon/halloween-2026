@@ -1,4 +1,5 @@
-/* js/invite.js — HUD, hotspots, info panel, calendar link, guest list */
+// invite
+
 (() => {
   const $ = s => document.querySelector(s);
   const panel = $("#info-panel"), box = $("#info-panel-content"), tip = $("#examine"), tipName = $("#examine-name");
@@ -7,7 +8,7 @@
   const KEY = "halloween-found";
   const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };
   const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
-  let found = load(KEY, []).filter(id => id in ITEMS), last = null;   // drops old saved ids like "clock"
+  let found = load(KEY, []).filter(id => id in ITEMS), last = null;   // old id fix
 
   const toast = $("#toast"); let pending = false, toastTimer;
 function celebrate() {
@@ -16,7 +17,7 @@ function celebrate() {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.hidden = true, 5000);
 }
-toast.addEventListener("click", () => toast.hidden = true);   // tap to dismiss
+toast.addEventListener("click", () => toast.hidden = true);   // dismiss on tzp
 
   function hud() {
 
@@ -78,7 +79,7 @@ toast.addEventListener("click", () => toast.hidden = true);   // tap to dismiss
     document.body.classList.add("paused");
     if (ITEMS[id] && !found.includes(id)) {
   found.push(id); save(KEY, found); hud();
-  if (found.length === Object.keys(ITEMS).length) pending = true;   // that was the last one
+  if (found.length === Object.keys(ITEMS).length) pending = true;   // last object
 }
     if (id === "calendar") { const days = Math.ceil((new Date(PARTY_CONFIG.date + " " + PARTY_CONFIG.startTime) - Date.now()) / 864e5); $("#cd").textContent = days > 0 ? days + " DAYS REMAIN" : "THE NIGHT IS HERE."; }
     if (id === "documents") guests().then(({ list, ok }) => { const g = $("#gl"); if (!g) return;

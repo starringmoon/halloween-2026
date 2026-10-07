@@ -1,7 +1,3 @@
-/* =========================================================
-   🎃 HALLOWEEN INVITATION — VISUAL CUSTOMIZATION
-   ========================================================= */
-
 
 @font-face {
     font-family: "nintendo";
@@ -9,29 +5,17 @@
 }
 :root {
   --bg: #050605;
-  /* background */
   --panel: rgba(8, 10, 8, 0.92);
-  /* panel */
   --text: #d9d6c8;
-  /* off-white text */
   --muted: #7d8272;
-  /* muted text */
   --border: #4a5246;
-  /* border */
   --accent: #8a1c1c;
-  /* muted red */
   --warn: #d0261f;
-  /* warning red */
   --green: #52684f;
-  /* desaturated green */
   --vhs-noise: 0.09;
-  /* grain strength */
   --overlay-opacity: 0.35;
-  /* dark overlay / vignette strength */
   --font: "nintendo", ui-monospace, Menlo, monospace;
-  /* fonts: drop a pixel font in assets/fonts and add @font-face */
   --speed: 1;
-  /* animation speed multiplier (higher = slower) */
 }
 
 * {
@@ -93,9 +77,7 @@ body {
 }
 
 
-/* =========================================================
-   VHS FX: cheap overlays
-   ========================================================= */
+/* OVERLAYS */
 
 .fx {
   position: fixed;
@@ -188,9 +170,7 @@ body.glitch .bg-video {
 }
 
 
-/* =========================================================
-   INTRO
-   ========================================================= */
+/* INTRO */
 
 
 
@@ -266,9 +246,7 @@ body.leaving .intro__text {
 }
 
 
-/* =========================================================
-   HOTSPOTS
-   ========================================================= */
+/* HOTSPOTS */
 
 .spots {
   position: fixed;
@@ -406,9 +384,7 @@ body.room-ready .spots {
 }
 
 
-/* =========================================================
-   HUD
-   ========================================================= */
+/* TODO : HUD */
 
 .hud {
   position: fixed;
@@ -455,9 +431,7 @@ body.room-ready .spots {
 }
 
 
-/* =========================================================
-   INFO PANEL
-   ========================================================= */
+/* TODO: INFO PANEL */
 
 .info-panel {
   position: fixed;
@@ -577,9 +551,7 @@ th {
 }
 
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+/* RESPONSIVE */
 
 @media (max-width: 600px) {
   .hud {
@@ -590,10 +562,6 @@ th {
 
 }
 
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 

@@ -1,4 +1,5 @@
-/* js/calibrate.js — only active at invite.html?calibrate */
+/* calibrate hotspots */
+
 (() => {
   if (!location.search.includes("calibrate")) return;
   const svgEl = document.getElementById("spots");

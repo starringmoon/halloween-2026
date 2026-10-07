@@ -1,4 +1,5 @@
-/* js/sound.js — music, hover sound, click sounds, SOUND button */
+//all sounds
+
 (() => {
   const KEY = "halloween-sound";
   let on = true;
@@ -14,7 +15,7 @@
   const hover = make(SOUNDS.hover, .3);
 
   const complete = make(SOUNDS.complete, .5);
-  window.Sound = { complete: () => play(complete) };   // lets invite.js trigger it
+  window.Sound = { complete: () => play(complete) };   // lets invite.js trigger
   
   
   const click = {};
@@ -26,13 +27,13 @@
     a.play().catch(e => console.warn("[sound] blocked:", a.src, e.name));
   };
 
-  // Hover (mouse only) + click sounds on every hotspot
+  // hover + click sounds on every hotspot
   document.querySelectorAll(".hot").forEach(h => {
     h.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") play(hover); });
     h.addEventListener("click", () => play(click[h.dataset.id]));
   });
 
-  // SOUND button
+  // sound on/off
   const btn = document.getElementById("sound");
   const render = () => { btn.textContent = "SOUND: " + (on ? "ON" : "OFF"); btn.setAttribute("aria-pressed", on); };
   btn.addEventListener("click", () => {
@@ -42,7 +43,7 @@
   });
   render();
 
-  // Music: try on arrival, else start on the first click/tap/key
+  // music autoplay, fallback w click
   if (on) music.play().catch(() => {
     const go = () => { if (on) music.play().catch(() => {}); };
     ["pointerdown", "keydown", "touchstart"].forEach(t => addEventListener(t, go, { once: true }));
