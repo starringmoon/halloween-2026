@@ -32,7 +32,7 @@
     const end = new Date(d); if (PARTY_CONFIG.endTime <= PARTY_CONFIG.startTime) end.setDate(end.getDate() + 1);
     return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(PARTY_CONFIG.title) +
       "&dates=" + f(d, PARTY_CONFIG.startTime) + "/" + f(end, PARTY_CONFIG.endTime) +
-      "&location=" + encodeURIComponent(PARTY_CONFIG.location) + "&details=" + encodeURIComponent(PARTY_CONFIG.description);
+      "&location=" + encodeURIComponent(PARTY_CONFIG.location);
   }
   const link = (href, label) => `<a class="btn" href="${esc(href)}" target="_blank" rel="noopener">${label}</a>`;
   function parseCSV(t) {

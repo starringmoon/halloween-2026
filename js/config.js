@@ -1,7 +1,7 @@
 /* main config */
 const PARTY_CONFIG = {
   title: "halloween 2026",
-  date: "October 31, 2026",
+  date: "october 31, 2026",
   startTime: "19:00",
   endTime: "02:00",  
   location: "namur",
